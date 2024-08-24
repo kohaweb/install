@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Siswa</title>
+    <link rel="icon" href="graduate.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <!--CSS-->
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 40px 8px 8px 8px;
+            background-color: #e1f8e5;
+            color: #333;
+            box-sizing: border-box;
+        }
+        h2 {
+            color: #30685c;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+        .teacher-photo {
+            display: block;
+            margin: 0 auto 10px auto;
+            max-width: 250px;
+            height: auto;
+            border-radius: 15px; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        .teacher-name {
+            text-align: center;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #30685c;
+        }
+        .table-container {
+            overflow-x: auto;
+            margin: 0 auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #d8f3e9;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px 15px;
+            text-align: center;
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+        }
+        th {
+            background-color: #5bca9c;
+            color: white;
+            font-weight: 600;
+            pointer-events: none;
+        }
+        th:hover {
+            background-color: #5bca9c;
+        }
+        tr:nth-child(even) {
+            background-color: #cdecd2;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+            cursor: pointer;
+        }
+        tr:hover td {
+            transform: scale(1.1);
+            font-weight: 600;
+            color: #2c916f;
+        }
+        .directory-link {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .directory-link a {
+            color: #30685c;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+            display: inline-block;
+        }
+
+        .directory-link a:hover {
+            color: #fff;
+            background-color: #30685c;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transform: translateY(-3px) scale(1.05);
+        }
+
+        .directory-link a:active {
+            color: #fff;
+            background-color: #2c916f;
+            transform: translateY(1px) scale(0.98);
+        }
+
+        .back-button {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            padding: 5px 10px;
+            background-color: #34c2a3;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 3px 4px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        .back-button:hover {
+            background-color: #2c916f;
+            transform: translateY(-2px);
+        }
+        .back-button:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.2);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        table tr {
+            animation: fadeIn 0.5s ease-out;
+            opacity: 0;
+            transform: translateY(20px);
+            animation-fill-mode: forwards;
+        }
+
+        table tr:nth-child(1) { animation-delay: 0.1s; }
+        table tr:nth-child(2) { animation-delay: 0.2s; }
+        table tr:nth-child(3) { animation-delay: 0.3s; }
+        table tr:nth-child(4) { animation-delay: 0.4s; }
+        table tr:nth-child(5) { animation-delay: 0.5s; }
+        table tr:nth-child(6) { animation-delay: 0.6s; }
+        table tr:nth-child(7) { animation-delay: 0.7s; }
+        table tr:nth-child(8) { animation-delay: 0.8s; }
+        table tr:nth-child(9) { animation-delay: 0.9s; }
+        table tr:nth-child(10) { animation-delay: 1s; }
+        table tr:nth-child(11) { animation-delay: 1.1s; }
+        table tr:nth-child(12) { animation-delay: 1.2s; }
+        table tr:nth-child(13) { animation-delay: 1.3s; }
+        table tr:nth-child(14) { animation-delay: 1.4s; }
+        table tr:nth-child(15) { animation-delay: 1.5s; }
+        table tr:nth-child(16) { animation-delay: 1.6s; }
+        table tr:nth-child(17) { animation-delay: 1.7s; }
+        table tr:nth-child(18) { animation-delay: 1.8s; }
+        table tr:nth-child(19) { animation-delay: 1.9s; }
+        table tr:nth-child(20) { animation-delay: 2s; }
+        table tr:nth-child(21) { animation-delay: 2.1s; }
+        table tr:nth-child(22) { animation-delay: 2.2s; }
+        table tr:nth-child(23) { animation-delay: 2.3s; }
+        table tr:nth-child(24) { animation-delay: 2.4s; }
+        table tr:nth-child(25) { animation-delay: 2.5s; }
+        table tr:nth-child(26) { animation-delay: 2.6s; }
+        table tr:nth-child(27) { animation-delay: 2.7s; }
+
+        @media (max-width: 768px) {
+            .back-button {
+                top: 5px;
+                left: 5px;
+                padding: 4px 8px;
+                font-size: 12px;
+            }
+            
+            h2 {
+                font-size: 20px;
+            }
+            
+            .teacher-photo {
+                max-width: 200px;
+            }
+            
+            .teacher-name {
+                font-size: 16px;
+                margin-bottom: 15px;
+            }
+            
+            .directory-link {
+                font-size: 14px;
+            }
+            
+            table {
+                font-size: 14px;
+            }
+            
+            th, td {
+                padding: 8px 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .back-button {
+                top: 5px;
+                left: 5px;
+                padding: 3px 6px;
+                font-size: 10px;
+            }
+            
+            h2 {
+                font-size: 18px;
+            }
+            
+            .teacher-photo {
+                max-width: 150px;
+            }
+            
+            .teacher-name {
+                font-size: 14px;
+                margin-bottom: 10px;
+            }
+            
+            .directory-link {
+                font-size: 12px;
+            }
+            
+            table {
+                font-size: 12px;
+            }
+            
+            th, td {
+                padding: 6px 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<a href="index.html" class="back-button">Kembali</a>
+
+<h2>Daftar Nama Siswa XI TKJ 1</h2>
+<img src="IMG_7592-min.jpg" alt="Foto Wali Kelas" class="teacher-photo">
+<p class="teacher-name">Walikelas: Yekti Nugroho, SE</p>
+
+<!--tabel siswa-->
+<div class="table-container">
+    <table>
+        <thead>
+            <tr>
+                <th>NO</th>
+                <th>NAMA</th>
+                <th>L/P</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>ADELSA AURA RAHMATUL IZA</td>
+                <td>P</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>ADIESTHA YULIANA SYAFIERA</td>
+                <td>P</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>AFRILSA AGULLIRA PARADISE</td>
+                <td>P</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>AGUNG DENI PRAYOGO</td>
+                <td>L</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>AGUNG PUTRA PRATAMA</td>
+                <td>L</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>AINUN FITRIA</td>
+                <td>P</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>ALAM ANJHAT SURYA</td>
+                <td>L</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>ALENTA PINKA SETIAWATI</td>
+                <td>P</td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>ALYA NOVIANA PUTRI</td>
+                <td>P</td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>ALYSIA NAIVA VONNY</td>
+                <td>P</td>
+            </tr>
+            <tr>
+                <td>11</td>
+                <td>ANGGUN SEFIANA</td>
+                <td>P</td>
+            </tr>
+            <tr>
+                <td>12</td>
+                <td>ANISA BELA DINA</td>
+                <td>P</td>
+            </tr>
+            <tr>
+                <td>13</td>
+                <td>APRISA FIKA AGUSTIZA</td>
+                <td>P</td>
+            </tr>
+            <tr>
+                <td>14</td>
+                <td>AREL ANANDA PATRICIA</td>
+                <td>P</td>
+            </tr>
+            <tr>
+                <td>15</td>
+                <td>ARINA PUTRI NING TYAS</td>
+                <td>P</td>
+            </tr>
+            <tr>
+                <td>16</td>
+                <td>ATIKA RAHMATUL AZA</td>
+                <td>P</td>
+            </tr>
+            <tr>
+                <td>17</td>
+                <td>AYU TRISNA APRILIA</td>
+                <td>P</td>
+            </tr>
+            <tr>
+                <td>18</td>
+                <td>BERTA DELA SAFITRI</td>
+                <td>P</td>
+            </tr>
+            <tr>
+                <td>19</td>
+                <td>BINTANG AGUNG ALFAREL</td>
+                <td>L</td>
+            </tr>
+            <tr>
+                <td>20</td>
+                <td>BUNGA RISKYA PANGESTU</td>
+                <td>P</td>
+            </tr>
+            <tr>
+                <td>21</td>
+                <td>CHAESYA VELOVE HASANDAH</td>
+                <td>P</td>
+            </tr>
+            <tr>
+                <td>22</td>
+                <td>INDIRA SAVENIA</td>
+                <td>P</td>
+            </tr>
+            <tr>
+                <td>23</td>
+                <td>JETTY APRILIA</td>
+                <td>P</td>
+            </tr>
+            <tr>
+                <td>24</td>
+                <td>KHIRANA EKA LARASATI</td>
+                <td>P</td>
+            </tr>
+            <tr>
+                <td>25</td>
+                <td>MICHELLINO DAYAQQOVA</td>
+                <td>L</td>
+            </tr>
+            <tr>
+                <td>26</td>
+                <td>SAVELA MARGARETA</td>
+                <td>P</td>
+            </tr>
+            <tr>
+                <td>27</td>
+                <td>SEPTIANA DWI ASTUTI</td>
+                <td>P</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="directory-link">
+    <a href="struktur-kelas.html">Struktur Kelas Klik disini</a>
+</div>
+
+</body>
+</html>

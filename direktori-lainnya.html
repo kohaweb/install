@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Other Directory</title>
+    <link rel="icon" href="directory.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: #e0e0e0;
+            color: #333;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #2c003e;
+        }
+
+        .file-explorer {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .file-explorer-header {
+            display: flex;
+            align-items: center;
+            border-bottom: 2px solid #2c003e;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .file-explorer-header span {
+            font-size: 1.2em;
+            color: #2c003e;
+            margin-right: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        .file-explorer-header img {
+            width: 25px;
+            height: 25px;
+        }
+
+        .file-explorer-header .breadcrumb {
+            font-size: 1em;
+            color: #555;
+        }
+
+        .file-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .file-list li {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .file-list li:last-child {
+            border-bottom: none;
+        }
+
+        .file-list li img {
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+
+        .file-list li a {
+            color: #0066cc;
+            text-decoration: none;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            transition: color 0.3s, text-decoration 0.3s;
+        }
+
+        .file-list li a:hover,
+        .file-list li a:focus {
+            color: #004d99;
+            text-decoration: underline;
+        }
+
+        .dark-theme {
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+
+        .dark-theme .container {
+            background-color: #1e1e1e;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+        }
+
+        .dark-theme h1 {
+            color: #a5d6a7;
+        }
+
+        .dark-theme .file-explorer-header {
+            border-bottom: 2px solid #a5d6a7;
+        }
+
+        .dark-theme .file-explorer-header span {
+            color: #a5d6a7;
+        }
+
+        .dark-theme .file-explorer-header .breadcrumb {
+            color: #b0b0b0;
+        }
+
+        .dark-theme .file-list li {
+            border-bottom: 1px solid #333;
+        }
+
+        .dark-theme .file-icon {
+            color: #a5d6a7;
+        }
+
+        .dark-theme .file-list li a {
+            color: #e0e0e0;
+        }
+
+        .dark-theme .file-list li a:hover,
+        .dark-theme .file-list li a:focus {
+            color: #a5d6a7;
+            text-decoration: underline;
+        }
+
+        .switch {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            display: inline-block;
+            width: 40px;
+            height: 24px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 12px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            border-radius: 50%;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+        }
+
+        input:checked + .slider {
+            background-color: #007bff;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(16px);
+        }
+
+        .slider.round {
+            border-radius: 12px;
+        }
+
+        .slider.round:before {
+            border-radius: 50%;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 1.5em;
+            }
+
+            .file-list li img {
+                width: 20px;
+                height: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <label class="switch">
+        <input type="checkbox" id="themeSwitch">
+        <span class="slider round"></span>
+    </label>
+
+    <div class="container">
+        <div class="file-explorer">
+            <div class="file-explorer-header">
+                <span id="backButton"><img src="images/open-folder.png" alt="Back"></span>
+                <div class="breadcrumb">Downloads</div>
+            </div>
+            <ul class="file-list">
+                <li>
+                    <a href="https://www.mediafire.com/file/yexmefu0luowwrs/WinSCP-6.3.4-Setup.exe/file" target="_blank"><img src="images/download.png" alt="Download"> WinSCP-6.3.4-Setup.exe</a>
+                </li>
+                <li>
+                    <a href="https://www.mediafire.com/file/v0urtt9jaqgpyj3/putty-64bit-0.81-installer.msi/file" target="_blank"><img src="images/download.png" alt="Download"> PuTTY-64bit-0.81-installer.msi</a>
+                </li>
+                <li>
+                    <a href="https://www.mediafire.com/file/9kbb79qxaqg6enj/VirtualBox-7.0.20-163906-Win.exe/file" target="_blank"><img src="images/download.png" alt="Download"> VirtualBox-7.0.20-163906-Win.exe</a>
+                </li>
+                <li>
+                    <a href="https://www.mediafire.com/file/e8tns7zngounty9/VC_redist.x64.exe/file" target="_blank"><img src="images/download.png" alt="Download"> VC_redist.x64.exe</a>
+                </li>
+                <li>
+                    <a href="https://www.mediafire.com/file/kjw12tg09dz3o3u/rufus-4.5p.exe/file" target="_blank"><img src="images/download.png" alt="Download"> rufus-4.5p.exe</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        const switchInput = document.getElementById('themeSwitch');
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const theme = localStorage.getItem('theme');
+            if (theme) {
+                document.body.classList.toggle('dark-theme', theme === 'dark');
+                switchInput.checked = theme === 'dark';
+            }
+        });
+
+        switchInput.addEventListener('change', () => {
+            const isDarkTheme = switchInput.checked;
+            document.body.classList.toggle('dark-theme', isDarkTheme);
+            localStorage.setItem('theme', isDarkTheme ? 'dark' : 'light');
+        });
+
+        const backButton = document.getElementById('backButton');
+        backButton.addEventListener('click', () => {
+            history.back();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harga Jasa</title>
+    <link rel="icon" href="coin.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* CSS */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #1e1e2f;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 0;
+            font-size: 1em;
+        }
+        h1 {
+            text-align: center;
+            color: #d1a3e3;
+            margin: 20px 0;
+            font-size: 2em;
+        }
+        .table-container {
+            display: flex;
+            justify-content: center;
+            padding: 0 10px;
+        }
+        table {
+            width: 88%;
+            border-collapse: collapse;
+            background-color: #2c2c3e;
+            border: 1px solid #444;
+            margin: auto;
+        }
+        th, td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #444;
+            font-size: 0.9em;
+        }
+        th {
+            background-color: #3c3c5c;
+            color: #e0e0e0;
+            font-weight: bold;
+        }
+        td {
+            background-color: #2c2c3e;
+            color: #e0e0e0;
+        }
+        .contact-links {
+            text-align: center;
+            margin: 20px auto;
+        }
+        .contact-links p {
+            font-size: 1.2em;
+            color: #d1a3e3;
+            margin: 0;
+        }
+        .contact-links a {
+            text-decoration: none;
+            color: #51416e;
+            font-size: 1.1em;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+        .contact-links a:hover, .contact-links a:focus {
+            color: #d1a3e3;
+            text-decoration: underline;
+        }
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: #3c3c5c;
+            color: #e0e0e0;
+            padding: 5px 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 0.8em;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            z-index: 1000;
+        }
+        .back-button:hover, .back-button:focus {
+            background-color: #d1a3e3;
+            color: #1e1e2f;
+        }
+        .content {
+            margin-top: 50px;
+        }
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.5em;
+            }
+            .table-container table {
+                font-size: 0.8em;
+            }
+            .contact-links p {
+                font-size: 1em;
+            }
+            .contact-links a {
+                font-size: 0.9em;
+                display: block;
+                margin: 5px 0;
+            }
+            .back-button {
+                top: 10px;
+                left: 10px;
+                padding: 5px 12px;
+                font-size: 0.7em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="javascript:history.back()" class="back-button">Kembali</a>
+    <div class="content">
+        <h1>Harga Pengerjaan</h1>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Jenis Dokumen</th>
+                        <th>Harga per Halaman</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Word</td>
+                        <td>Rp 3.000</td>
+                    </tr>
+                    <tr>
+                        <td>PowerPoint</td>
+                        <td>Rp 3.000</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="contact-links">
+            <p>👇 Kontak Admin 👇</p>
+            <a href="https://wa.me/6281333866874" target="_blank">WhatsApp</a> 
+            <a href="https://www.instagram.com/jasa_ketik_dawwy" target="_blank">Instagram</a>
+        </div>
+        <div class="contact-links">
+            <a href="mailto:michellino241@gmail.com" target="_blank">michellino241@gmail.com</a>
+        </div>
+    </div>
+</body>
+</html>

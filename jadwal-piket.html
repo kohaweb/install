@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jadwal Piket Kelas</title>
+    <link rel="icon" href="schedule.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #2c282e;
+            color: #e0e0e0;
+        }
+        h1 {
+            text-align: center;
+            background: linear-gradient(45deg, #ff007f, #00d2ff, #ff007f);
+            background-size: 300% 300%;
+            color: #fff;
+            padding: 20px;
+            margin: 0;
+            font-size: 2.5em;
+            text-shadow: 0 0 15px rgba(255, 0, 255, 0.6), 0 0 30px rgba(0, 255, 255, 0.6);
+            animation: gradientAnimation 6s linear infinite;
+        }
+
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 100%; }
+            100% { background-position: 0% 0%; }
+        }
+
+        .pin {
+            background: #1e1e1e;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            margin: 20px auto;
+            width: 60%;
+            max-width: 600px;
+            text-align: center;
+        }
+        .pin p {
+            font-size: 1.3em;
+            margin: 0;
+            color: #ff007f;
+            font-weight: 600;
+        }
+        .pin-content {
+            margin-top: 10px;
+            text-align: left;
+        }
+        .pin-content div {
+            margin: 10px 0;
+            padding: 10px;
+            background: #333;
+            border-left: 5px solid #00d2ff;
+            border-radius: 4px;
+            font-size: 1.1em;
+            color: #e0e0e0;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        .day-schedule-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .day-schedule {
+            background: #1e1e1e;
+            border-radius: 8px;
+            padding: 20px;
+        }
+        .day-schedule h2 {
+            color: #ff007f;
+            font-size: 1.5em;
+            border-bottom: 2px solid #ff007f;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+        .day-schedule ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .day-schedule li {
+            margin: 10px 0;
+            padding: 10px;
+            background: #333;
+            border-left: 5px solid #00d2ff;
+            border-radius: 4px;
+            font-size: 1.1em;
+            color: #e0e0e0;
+        }
+        
+        .back-button-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .back-button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 1.1em;
+            color: #fff;
+            background: #ff007f;
+            border-radius: 5px;
+            text-decoration: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            transition: background 0.3s, box-shadow 0.3s, transform 0.1s;
+        }
+
+        .back-button:hover {
+            background: #00d2ff;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.7);
+        }
+
+        .back-button:active {
+            transform: scale(0.95);
+        }
+
+        @media (max-width: 768px) {
+            body {
+                font-size: 14px;
+            }
+            h1 {
+                font-size: 2em;
+                padding: 15px;
+            }
+            .pin {
+                width: 80%;
+                padding: 15px;
+            }
+            .pin p {
+                font-size: 1.1em;
+            }
+            .pin-content div {
+                font-size: 1em;
+            }
+            .day-schedule-container {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+            .day-schedule {
+                padding: 15px;
+            }
+            .day-schedule h2 {
+                font-size: 1.2em;
+            }
+            .day-schedule li {
+                font-size: 0.9em;
+                padding: 8px;
+            }
+            .back-button {
+                font-size: 1em;
+                padding: 8px 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                font-size: 12px;
+            }
+            h1 {
+                font-size: 1.5em;
+                padding: 10px;
+            }
+            .pin {
+                width: 90%;
+                padding: 10px;
+            }
+            .pin p {
+                font-size: 1em;
+            }
+            .pin-content div {
+                font-size: 0.9em;
+            }
+            .day-schedule-container {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            .day-schedule {
+                padding: 10px;
+            }
+            .day-schedule h2 {
+                font-size: 1em;
+            }
+            .day-schedule li {
+                font-size: 0.8em;
+                padding: 6px;
+            }
+            .back-button {
+                font-size: 0.9em;
+                padding: 6px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Jadwal Piket Kelas</h1>
+    <div class="pin" id="current-schedule">
+        <p>Yang bertugas piket hari ini:</p>
+        <div class="pin-content" id="current-schedule-list"></div>
+    </div>
+    <div class="container">
+        <div class="day-schedule-container">
+            <div class="day-schedule" id="senin">
+                <h2>SENIN</h2>
+                <ul>
+                    <li>Adelsa Aura Ramahtul Iza</li>
+                    <li>Adiesta Yuliana Syafira</li>
+                    <li>Afriisa Agullira Paradise</li>
+                    <li>Agung Deni Prayogo</li>
+                    <li>Agung Putra Pratama</li>
+                </ul>
+            </div>
+
+            <div class="day-schedule" id="selasa">
+                <h2>SELASA</h2>
+                <ul>
+                    <li>Ainun Fitria</li>
+                    <li>Alam Anjhat Surya</li>
+                    <li>Alenta Pinka Setiawati</li>
+                    <li>Alya Noviana</li>
+                </ul>
+            </div>
+
+            <div class="day-schedule" id="rabu">
+                <h2>RABU</h2>
+                <ul>
+                    <li>Alysia Naiva Vonny</li>
+                    <li>Anggun Seviana</li>
+                    <li>Anisa Bela Dina</li>
+                    <li>Aprisa Fika Agustiza</li>
+                    <li>Arel Ananda Praticia</li>
+                </ul>
+            </div>
+
+            <div class="day-schedule" id="kamis">
+                <h2>KAMIS</h2>
+                <ul>
+                    <li>Arina Putri Ning Tyas</li>
+                    <li>Atika Ramahtul Aza</li>
+                    <li>Ayu Trisna Aprilia</li>
+                    <li>Berta Dela Safitri</li>
+                    <li>Bintang Agung Alfarel</li>
+                </ul>
+            </div>
+
+            <div class="day-schedule" id="jumat">
+                <h2>JUMAT</h2>
+                <ul>
+                    <li>Bunga Riskya Pangestu</li>
+                    <li>Chaesya Velove Hasandah</li>
+                    <li>Indira Savenia</li>
+                    <li>Jetty Aprilia</li>
+                </ul>
+            </div>
+
+            <div class="day-schedule" id="sabtu">
+                <h2>SABTU</h2>
+                <ul>
+                    <li>Khirana Eka Larasati</li>
+                    <li>Michellino Dayaqqova</li>
+                    <li>Savela Margareta</li>
+                    <li>Septiana Dwi Astuti</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="back-button-container">
+            <a href="index.html" class="back-button">Kembali ke Halaman Utama</a>
+        </div>
+    </div>
+
+    <script>
+        function getDayName(index) {
+            switch (index) {
+                case 0: return 'Minggu';
+                case 1: return 'SENIN';
+                case 2: return 'SELASA';
+                case 3: return 'RABU';
+                case 4: return 'KAMIS';
+                case 5: return 'JUMAT';
+                case 6: return 'SABTU';
+                default: return '';
+            }
+        }
+
+        function updateCurrentSchedule() {
+            const days = ['senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu'];
+            const today = new Date().getDay();
+            const scheduleId = days[today - 1];
+            const scheduleElement = document.getElementById(scheduleId);
+
+            const currentScheduleList = document.getElementById('current-schedule-list');
+            currentScheduleList.innerHTML = '';
+
+            if (scheduleElement) {
+                const items = scheduleElement.querySelectorAll('ul li');
+                items.forEach(item => {
+                    const listItem = document.createElement('div');
+                    listItem.textContent = item.textContent;
+                    currentScheduleList.appendChild(listItem);
+                });
+            } else {
+                const noSchedule = document.createElement('div');
+                noSchedule.textContent = 'Tidak ada jadwal';
+                currentScheduleList.appendChild(noSchedule);
+            }
+        }
+
+        updateCurrentSchedule();
+    </script>
+</body>
+</html>

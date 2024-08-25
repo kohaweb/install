@@ -197,128 +197,127 @@
         <button class="reset" onclick="resetGame()">Reset Game</button>
     </div>
 
-    <!--JavaScript-->
     <script>
-const board = document.getElementById('board');
-const status = document.querySelector('.status');
-const scoreX = document.getElementById('scoreX');
-const scoreO = document.getElementById('scoreO');
-let currentPlayer = 'X';
-let gameBoard = Array(10).fill(null).map(() => Array(10).fill(null));
-let winningLine = null;
-let scores = { X: 0, O: 0 };
+        const board = document.getElementById('board');
+        const status = document.querySelector('.status');
+        const scoreX = document.getElementById('scoreX');
+        const scoreO = document.getElementById('scoreO');
+        let currentPlayer = 'X';
+        let gameBoard = Array(10).fill(null).map(() => Array(10).fill(null));
+        let winningLine = null;
+        let scores = { X: 0, O: 0 };
 
-function createBoard() {
-    board.innerHTML = '';
-    for (let i = 0; i < 100; i++) {
-        const cell = document.createElement('div');
-        cell.classList.add('cell');
-        cell.dataset.index = i;
-        cell.addEventListener('click', () => handleClick(i));
-        board.appendChild(cell);
-    }
-}
-
-function handleClick(index) {
-    const row = Math.floor(index / 10);
-    const col = index % 10;
-
-    if (gameBoard[row][col] || checkWinner()) return;
-
-    gameBoard[row][col] = currentPlayer;
-    const cell = board.children[index];
-    cell.textContent = currentPlayer;
-    cell.classList.add(currentPlayer.toLowerCase());
-
-    if (checkWinner()) {
-        status.textContent = `Pemain ${currentPlayer} Menang!`;
-        scores[currentPlayer]++;
-        updateScores();
-        flashScore(currentPlayer);
-        setTimeout(resetGame, 1000);
-    } else {
-        currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-        status.textContent = `Giliran Pemain: ${currentPlayer}`;
-    }
-}
-
-function checkWinner() {
-    for (let i = 0; i < 10; i++) {
-        for (let j = 0; j < 10; j++) {
-            const result = checkLine(i, j);
-            if (result) {
-                winningLine = result;
-                return true;
+        function createBoard() {
+            board.innerHTML = '';
+            for (let i = 0; i < 100; i++) {
+                const cell = document.createElement('div');
+                cell.classList.add('cell');
+                cell.dataset.index = i;
+                cell.addEventListener('click', () => handleClick(i));
+                board.appendChild(cell);
             }
         }
-    }
-    return false;
-}
 
-function checkLine(row, col) {
-    const directions = [
-        {name: 'horizontal', dx: 0, dy: 1},
-        {name: 'vertical', dx: 1, dy: 0},
-        {name: 'diagonal1', dx: 1, dy: 1},
-        {name: 'diagonal2', dx: 1, dy: -1}
-    ];
-    const player = gameBoard[row][col];
+        function handleClick(index) {
+            const row = Math.floor(index / 10);
+            const col = index % 10;
 
-    if (!player) return null;
+            if (gameBoard[row][col] || checkWinner()) return;
 
-    for (const {name, dx, dy} of directions) {
-        let count = 0;
-        let startRow = row, startCol = col;
+            gameBoard[row][col] = currentPlayer;
+            const cell = board.children[index];
+            cell.textContent = currentPlayer;
+            cell.classList.add(currentPlayer.toLowerCase());
 
-        while (isValid(startRow, startCol) && gameBoard[startRow][startCol] === player) {
-            count++;
-            startRow += dx;
-            startCol += dy;
+            if (checkWinner()) {
+                status.textContent = `Pemain ${currentPlayer} Menang!`;
+                scores[currentPlayer]++;
+                updateScores();
+                flashScore(currentPlayer);
+                setTimeout(resetGame, 1000);
+            } else {
+                currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+                status.textContent = `Giliran Pemain: ${currentPlayer}`;
+            }
         }
 
-        startRow = row - dx * (count - 1);
-        startCol = col - dy * (count - 1);
-        while (isValid(startRow, startCol) && gameBoard[startRow][startCol] === player) {
-            count++;
-            startRow += dx;
-            startCol += dy;
+        function checkWinner() {
+            for (let i = 0; i < 10; i++) {
+                for (let j = 0; j < 10; j++) {
+                    const result = checkLine(i, j);
+                    if (result) {
+                        winningLine = result;
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
 
-        if (count >= 7) return {name, startRow: row, startCol: col, dx, dy, length: count};
-    }
+        function checkLine(row, col) {
+            const directions = [
+                {name: 'horizontal', dx: 0, dy: 1},
+                {name: 'vertical', dx: 1, dy: 0},
+                {name: 'diagonal1', dx: 1, dy: 1},
+                {name: 'diagonal2', dx: 1, dy: -1}
+            ];
+            const player = gameBoard[row][col];
 
-    return null;
-}
+            if (!player) return null;
 
-function isValid(row, col) {
-    return row >= 0 && row < 10 && col >= 0 && col < 10;
-}
+            for (const {name, dx, dy} of directions) {
+                let count = 0;
+                let startRow = row, startCol = col;
 
-function updateScores() {
-    scoreX.textContent = `X: ${scores.X}`;
-    scoreO.textContent = `O: ${scores.O}`;
-}
+                while (isValid(startRow, startCol) && gameBoard[startRow][startCol] === player) {
+                    count++;
+                    startRow += dx;
+                    startCol += dy;
+                }
 
-function flashScore(player) {
-    const scoreElement = player === 'X' ? scoreX : scoreO;
-    scoreElement.classList.add('blink');
-    setTimeout(() => {
-        scoreElement.classList.remove('blink');
-    }, 500);
-}
+                startRow = row - dx * (count - 1);
+                startCol = col - dy * (count - 1);
+                while (isValid(startRow, startCol) && gameBoard[startRow][startCol] === player) {
+                    count++;
+                    startRow += dx;
+                    startCol += dy;
+                }
 
-function resetGame() {
-    gameBoard = Array(10).fill(null).map(() => Array(10).fill(null));
-    Array.from(board.children).forEach(cell => {
-        cell.textContent = '';
-        cell.classList.remove('x', 'o');
-    });
-    currentPlayer = 'X';
-    status.textContent = `Giliran Pemain: ${currentPlayer}`;
-    winningLine = null;
-}
+                if (count >= 7) return {name, startRow: row, startCol: col, dx, dy, length: count};
+            }
 
-createBoard();
+            return null;
+        }
+
+        function isValid(row, col) {
+            return row >= 0 && row < 10 && col >= 0 && col < 10;
+        }
+
+        function updateScores() {
+            scoreX.textContent = `X: ${scores.X}`;
+            scoreO.textContent = `O: ${scores.O}`;
+        }
+
+        function flashScore(player) {
+            const scoreElement = player === 'X' ? scoreX : scoreO;
+            scoreElement.classList.add('blink');
+            setTimeout(() => {
+                scoreElement.classList.remove('blink');
+            }, 500);
+        }
+
+        function resetGame() {
+            gameBoard = Array(10).fill(null).map(() => Array(10).fill(null));
+            Array.from(board.children).forEach(cell => {
+                cell.textContent = '';
+                cell.classList.remove('x', 'o');
+            });
+            currentPlayer = 'X';
+            status.textContent = `Giliran Pemain: ${currentPlayer}`;
+            winningLine = null;
+        }
+
+        createBoard();
     </script>
 </body>
 </html>

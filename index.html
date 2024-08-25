@@ -6,8 +6,8 @@
     <title>Kohaweb</title>
     <link rel="icon" href="picaxe.png" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <style>
-        /* CSS */
+   
+   <style>
         body {
             font-family: 'Poppins', sans-serif;
             background-color: #f5f5f5;
@@ -41,7 +41,7 @@
         }
         .table-container {
             width: 100%;
-            overflow-x: auto; /* Allows horizontal scrolling on small screens */
+            overflow-x: auto;
         }
         table {
             width: 100%;
@@ -127,14 +127,15 @@
             text-align: center;
             margin: 10px 0;
         }
-        .social-media a {
-            color: #480079;
+        .social-media .instagram-link {
+            color: #684194;
             text-decoration: none;
-            font-size: 1.2em;
-            transition: text-decoration 0.3s ease;
+            font-weight: bold;
+            transition: color 0.3s ease;
         }
-        .social-media a:hover, .social-media a:focus {
-            text-decoration: underline;
+
+        .social-media .instagram-link:hover, .social-media .instagram-link:focus {
+            color: #e07bff;
         }
         #time {
             text-align: center;
@@ -148,13 +149,13 @@
                 align-items: stretch;
             }
             .table-container {
-                overflow-x: auto; /* Ensure horizontal scrolling */
+                overflow-x: auto;
             }
             table {
-                font-size: 0.8em; /* Smaller font size on mobile */
+                font-size: 0.8em;
             }
             th, td {
-                padding: 10px; /* Reduce padding for smaller screens */
+                padding: 10px;
             }
             .directories {
                 width: 100%;
@@ -307,12 +308,13 @@
         <p><a href="https://www.internetdownloadmanager.com/" target="_blank">Internet Download Manager (IDM)</a></p>
     </div>
     <div class="footer">
-        <p>Created by Michellino</p>
-        <p>&copy; 2024 Kohaweb. All rights reserved.</p>
+        <p>By Michellino</p>
+        <p>&copy; 2024 Kohaweb.</p>
     </div>
     <div class="social-media">
-        <p>Ikuti dan dukung dengan menekan <a href="https://www.instagram.com/tkj1_hammer?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/800px-Instagram_logo_2016.svg.png" alt="Instagram" style="width: 24px; vertical-align: middle;"></a></p>
+        <p>Ikuti dan dukung <a href="https://www.instagram.com/tkj1_hammer?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="instagram-link">@tkj1_hammer</a></p>
     </div>
+    
     <p id="time"></p>
     
     <label class="switch">
@@ -320,7 +322,6 @@
         <span class="slider round"></span>
     </label>
     
-    <!-- JavaScript -->
     <script>
         const switchInput = document.getElementById('themeSwitch');
         
